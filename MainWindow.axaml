@@ -1,0 +1,88 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="LocalizeMaster.MainWindow"
+        xmlns:local="clr-namespace:LocalizeMaster"
+        Title="LocalizeMaster">
+  <Grid RowDefinitions="auto,*">
+    <Grid Grid.Row="0" ColumnDefinitions="200,300,150,*,100,100" Classes="Menu">
+      <Button Grid.Column="0" Content="Load files" Click="LoadFiles_Click"/>
+      <ComboBox Grid.Column="1"
+                x:Name="CulturesComboBox"
+                SelectedItem="{Binding CurrentCulture}"
+                Width="300"
+                Items="{Binding Cultures}"/>
+      <Button Grid.Column="2" Margin="2" Content="Add language" Click="AddLanguage_Click"/>
+
+      <Button Grid.Column="4" Content="Settings" Click="Settings_Click"/>
+      <Button Grid.Column="5" Content="Export" Click="Export_Click"/>
+    </Grid>
+
+    <Grid Grid.Row="1" ColumnDefinitions="200,auto,*" Margin="5">
+      <Grid Grid.Column="0" RowDefinitions="40,*">
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+          <TextBlock VerticalAlignment="Center" Text="Values:" Margin="0 0 5 0"/>
+          <Button Content="+" Click="AddValue_Click"/>
+        </StackPanel>
+
+        <ScrollViewer Grid.Row="1" x:Name="Scroll1">
+          <ScrollViewer.Offset>
+            <Binding ElementName="Scroller" Path="Offset" Mode="TwoWay"/>
+          </ScrollViewer.Offset>
+
+          <ItemsRepeater Items="{Binding Values}">
+            <ItemsRepeater.ItemTemplate>
+              <DataTemplate>
+                <Grid ColumnDefinitions="auto,*">
+                  <Button Grid.Column="0" Content="x" ToolTip.Tip="Remove current term" Click="RemoveValue_Click" Tag="{Binding}" />
+                  <TextBox Grid.Column="1" Text="{Binding Value, Mode=TwoWay}" Margin="2 0 0 0" />
+                </Grid>
+              </DataTemplate>
+            </ItemsRepeater.ItemTemplate>
+          </ItemsRepeater>
+        </ScrollViewer>
+      </Grid>
+
+      <GridSplitter Grid.Column="1"/>
+
+      <ScrollViewer Grid.Column="2" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled">
+        <ItemsRepeater Items="{Binding Languages}">
+
+          <ItemsRepeater.Layout>
+            <StackLayout Orientation="Horizontal"/>
+          </ItemsRepeater.Layout>
+
+          <ItemsRepeater.ItemTemplate>
+            <DataTemplate>
+              <Grid Width="300" RowDefinitions="40,*">
+                <StackPanel Grid.Row="0" Orientation="Horizontal">
+                  <TextBlock VerticalAlignment="Center" Text="{Binding}" Width="225"/>
+                  <Button Content="Remove" Click="RemoveLanguage_Click" Tag="{Binding}"/>
+                </StackPanel>
+                <ScrollViewer x:Name="Scroller" Grid.Row="1"
+                              VerticalScrollBarVisibility="Hidden"
+                              HorizontalScrollBarVisibility="Disabled">
+                  <ScrollViewer.Offset>
+                    <Binding ElementName="Scroll1" Path="Offset" Mode="TwoWay"/>
+                  </ScrollViewer.Offset>
+
+                  <ItemsRepeater Grid.Column="0" Items="{Binding Items}">
+                    <ItemsRepeater.ItemTemplate>
+                      <DataTemplate>
+                        <TextBox Text="{Binding Value, Mode=TwoWay}"/>
+                      </DataTemplate>
+                    </ItemsRepeater.ItemTemplate>
+                  </ItemsRepeater>
+                </ScrollViewer>
+              </Grid>
+
+            </DataTemplate>
+          </ItemsRepeater.ItemTemplate>
+        </ItemsRepeater>
+      </ScrollViewer>
+
+    </Grid>
+  </Grid>
+</Window>

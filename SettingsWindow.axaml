@@ -1,0 +1,26 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="LocalizeMaster.SettingsWindow"
+        xmlns:local="clr-namespace:LocalizeMaster"
+        Background="#11555555"
+        Title="Settings">
+  <ScrollViewer>
+    <StackPanel Margin="10">
+      <Grid ColumnDefinitions="250,auto">
+        <TextBlock Grid.Column="0" Text="Theme"/>
+        <ComboBox Grid.Column="1" SelectedItem="{Binding Theme, Mode=TwoWay}" Items="{Binding Themes}" Width="150"/>
+      </Grid>
+      <Grid ColumnDefinitions="250,auto">
+        <TextBlock Grid.Column="0" Text="Serialize empty terms"/>
+        <CheckBox Grid.Column="1" IsChecked="{Binding SerializeEmptyTerms, Mode=TwoWay}"/>
+      </Grid>
+      <Grid ColumnDefinitions="250,auto">
+        <TextBlock Grid.Column="0" Text="Serialize empty values"/>
+        <CheckBox Grid.Column="1" IsChecked="{Binding SerializeEmptyValues, Mode=TwoWay}"/>
+      </Grid>
+    </StackPanel>
+  </ScrollViewer>
+</Window>
